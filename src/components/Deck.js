@@ -1,7 +1,16 @@
 import React, {Component} from 'react';
-import { View, Animated, PanResponder } from 'react-native';
+import { View, Animated, PanResponder, Dimensions } from 'react-native';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SWIPE_THRESHOLD = SCREEN_WIDTH / 4;
+const SWIPE_OUT_DURATION = 250;
 
 class Deck extends Component {
+    static defaultProps = {
+        onSwipeRight: () => {},
+        onSwipeLeft: () => {}
+    };
+
     constructor(props) {
         super(props);
 
@@ -12,16 +21,47 @@ class Deck extends Component {
             onPanResponderMove: (event, gesture) => {
                 position.setValue({x: gesture.dx, y: gesture.dy });
             },
-            onPanResponderRelease: () => {}
+            onPanResponderRelease: (event, gesture) => {
+                if (gesture.dx > SWIPE_THRESHOLD) {
+                    this.forceSwipe('right');
+                } else if (gesture.dx < -SWIPE_THRESHOLD) {
+                    this.forceSwipe('left');
+                } else {
+                    this.resetPosition();
+                }
+            }
         });
 
         this.panResponder = panResponder;
         this.position = position;
+        this.state = { index: 0 };
+    }
+
+    forceSwipe(direction) {
+        const xValue = direction === 'left' ? -SCREEN_WIDTH : SCREEN_WIDTH;
+        Animated.timing(this.position, {
+            toValue: {x: xValue, y: 0},
+            duration: SWIPE_OUT_DURATION
+        }).start(() => this.onSwipeComplete(direction));
+    }
+
+    onSwipeComplete(direction) {
+        const { onSwipeRight, onSwipeLeft, data } = this.props;
+        const item = data[this.state.index];
+        direction === 'right' ? onSwipeRight(item) : onSwipeLeft(item);
+        this.position.setValue({ x:0, y: 0 });
+        this.setState({ index: this.state.index + 1});
+    }
+
+    resetPosition() {
+        Animated.spring(this.position, {
+            toValue: {x: 0, y: 0}
+        }).start();
     }
 
     getCardStyle() {
         const rotate = this.position.x.interpolate({
-            inputRange: [-500, 0, 500],
+            inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
             outputRange: ['-90deg', '0deg', '90deg']
         });
 
