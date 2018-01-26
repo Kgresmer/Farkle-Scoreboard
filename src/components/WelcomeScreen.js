@@ -12,7 +12,7 @@ class WelcomeScreen extends Component {
         const {navigate} = this.props.navigation;
         setTimeout(() => {
             navigate('AddPlayers');
-        }, 3000);
+        }, 500);
     }
 
     render() {

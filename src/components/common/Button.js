@@ -16,7 +16,6 @@ const Button = ({ children, onPress, buttonStyleDyn, textStyleDyn }) => {
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        flex: 1,
         justifyContent: 'center',
         alignSelf: 'stretch', //stretch to fill the limits of the container
         backgroundColor: 'white',

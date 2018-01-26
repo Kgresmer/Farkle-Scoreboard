@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import {Card, CardSection, Button } from "../components/common/index";
-import { connect } from 'react-redux';
-import {StyleSheet} from "react-native";
+import React, {Component} from 'react';
+import {Card, CardSection, Button} from "../components/common/index";
+import {connect} from 'react-redux';
+import {StyleSheet, View} from "react-native";
 
 class AddPlayers extends Component {
     static navigationOptions = {
@@ -9,7 +9,7 @@ class AddPlayers extends Component {
         headerStyle: {
             backgroundColor: '#ff7f41'
         },
-        headerTitleStyle:  {
+        headerTitleStyle: {
             color: 'white'
         }
     };
@@ -28,27 +28,48 @@ class AddPlayers extends Component {
 
     render() {
         return (
-            <Card>
-                <CardSection style={styles.playerButtonsContainer}>
-                    <Button onPress={this.onExistingPlayerPress.bind(this)}>
-                        Add Existing Player
-                    </Button>
-                    <Button onPress={this.onNewPlayerPress.bind(this)}>
-                        Add New Player
-                    </Button>
-                    <Button onPress={this.onReadyButtonPress.bind(this)}>
-                        Ready!
-                    </Button>
-                </CardSection>
-            </Card>
+            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'}}>
+                <Card style={styles.playerButtonsContainer}>
+                    <CardSection style={{}}>
+                        <Button
+                            buttonStyleDyn={styles.existingButtonStyle}
+                            onPress={this.onExistingPlayerPress.bind(this)}>
+                            Add Existing Player
+                        </Button>
+                    </CardSection>
+                </Card>
+                <Card>
+                    <CardSection style={{}}>
+                        <Button
+                            buttonStyleDyn={styles.newButtonStyle}
+                            onPress={this.onNewPlayerPress.bind(this)}>
+                            Add New Player
+                        </Button>
+                    </CardSection>
+                </Card>
+                <Card dynamicStyles={{justifyContent: 'flex-end'}}>
+                    <CardSection style={{}}>
+                        <Button
+                            buttonStyleDyn={styles.readyButtonStyle}
+                            onPress={this.onReadyButtonPress.bind(this)}>
+                            Ready!
+                        </Button>
+                    </CardSection>
+                </Card>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    playerButtonsContainer: {
-        flexDirection: 'column',
-        justifyContent: 'center',
+    playerButtonsContainer: {},
+    existingButtonStyle: {
+
+    },
+    newButtonStyle: {
+
+    },
+    readyButtonStyle: {
 
     }
 });

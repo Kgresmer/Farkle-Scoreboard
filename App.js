@@ -31,7 +31,7 @@ export default class App extends React.Component {
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return (
             <Provider store={store}>
-                <SimpleApp/>
+                <SimpleApp style={styles.container}/>
             </Provider>
         );
     }
@@ -39,7 +39,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flex: 1
     },
 });
