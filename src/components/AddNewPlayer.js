@@ -1,20 +1,19 @@
 import React from 'react';
-import {Text, View, Modal, StyleSheet} from 'react-native';
+import {Text, View, Modal, StyleSheet, Dimensions} from 'react-native';
 import {CardSection} from './common/CardSection';
 import {Button} from './common/Button';
 import {Card} from "./common/Card";
 import {Input} from "./common/Input";
 
 
-const Confirm = ({children, visible}) => {
-    const {cardSectionStyles, textStyles, containerStyles} = styles;
+const AddNewPlayer = ({visible}) => {
 
     const addPlayer = () => {
         // call action creator
         visible = false;
     };
 
-    const cancelAddPlayer = () =>  {
+    const cancelAddPlayer = () => {
         visible = false;
     };
 
@@ -23,34 +22,50 @@ const Confirm = ({children, visible}) => {
             visible={visible}
             transparent
             animationType="slide"
-            onRequestClose={() => {}}
-          >
-          <View style={containerStyles}>
-              <Card dynamicStyles={cardSectionStyles}>
-                  <CardSection>
-                      <Text style={textStyles}>Enter Player Name</Text>
-                      <Input
-                          label="Name"
-                          keyboardType="default"
-                          placeholder="Name"
-                      />
-                  </CardSection>
-                  <CardSection>
-                      <Button onPress={cancelAddPlayer()}>Cancel</Button>
-                      <Button onPress={addPlayer()}>Add</Button>
-                  </CardSection>
-              </Card>
-          </View>
-      </Modal>
+            onRequestClose={() => {
+            }}
+        >
+            <View style={styles.containerStyles}>
+                <Card dynamicStyles={styles.newPlayerCard}>
+                    <CardSection>
+                        <Text style={styles.textStyles}>Enter Player Name</Text>
+                    </CardSection>
+                    <Card dynamicStyles={styles.inputCard}>
+                        <CardSection>
+                            <Input
+                                label=""
+                                keyboardType="default"
+                                placeholder="Name"
+                            />
+                        </CardSection>
+                    </Card>
+                    <CardSection>
+                        <Button
+                            buttonStyleDyn={{backgroundColor: '#ea651d'}}
+                            onPress={cancelAddPlayer}>
+                            Cancel</Button>
+                        <Button
+                            buttonStyleDyn={{backgroundColor: '#05a8aa'}}
+                            onPress={addPlayer}>
+                            Add</Button>
+                    </CardSection>
+                </Card>
+            </View>
+        </Modal>
     );
 };
 
 const styles = StyleSheet.create({
-    cardSectionStyles: {
+    newPlayerCard: {
         justifyContent: 'center',
-        marginLeft: 35,
-        marginRight: 35,
-        borderRadius: 5
+        alignItems: 'center',
+        marginRight: 50,
+        marginLeft: 50
+    },
+    inputCard: {
+        marginBottom: 10,
+        padding: 8,
+        width: Dimensions.get('window').width * 0.7
     },
     textStyles: {
         flex: 1,
@@ -64,8 +79,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.75)',
         position: 'relative',
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
 
-export {Confirm};
+export {AddNewPlayer};

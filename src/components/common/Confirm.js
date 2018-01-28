@@ -6,7 +6,7 @@ import {Card} from "./Card";
 
 
 const Confirm = ({children, onAccept, onDecline, visible}) => {
-    const {cardSectionStyles, textStyles, containerStyles} = styles;
+    const {cardStyles, textStyles, containerStyles} = styles;
 
     return (
         <Modal
@@ -16,7 +16,7 @@ const Confirm = ({children, onAccept, onDecline, visible}) => {
             onRequestClose={() => {}}
           >
           <View style={containerStyles}>
-              <Card dynamicStyles={cardSectionStyles}>
+              <Card dynamicStyles={cardStyles}>
                   <CardSection>
                       <Text style={textStyles}>{children}</Text>
                   </CardSection>
@@ -31,7 +31,7 @@ const Confirm = ({children, onAccept, onDecline, visible}) => {
 };
 
 const styles = StyleSheet.create({
-    cardSectionStyles: {
+    cardStyles: {
         justifyContent: 'center',
         marginLeft: 35,
         marginRight: 35,

@@ -12,7 +12,7 @@ class PlayerListItem extends Component {
         const {player} = this.props;
         console.log(player);
         return (
-            <Card dynamicStyles={{backgroundColor: '#05a8aa', width: (Dimensions.get('window').width)}}>
+            <Card dynamicStyles={styles.card}>
                 <View style={styles.playerItemContainer}>
                     <View>
                         <CardSection style={{backgroundColor: '#05a8aa'}}>
@@ -46,6 +46,10 @@ class PlayerListItem extends Component {
 }
 
 const styles = {
+    card: {
+        backgroundColor: '#05a8aa',
+        width: (Dimensions.get('window').width)
+    },
     playerItemContainer: {
         flex: 1,
         flexDirection: 'row',

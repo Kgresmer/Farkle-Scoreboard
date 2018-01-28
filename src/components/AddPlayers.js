@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Button} from "../components/common/index";
+import {Button} from "../components/common";
 import {StyleSheet, View, ListView} from "react-native";
 import PlayerListItem from "./PlayerListItem";
+import {AddNewPlayer} from "./AddNewPlayer";
 
 const DATA = [
     {id: 1, name: 'Kevin', wins: 2, losses: 1, bestScore: 10500, worstScore: 5400},
@@ -25,11 +26,17 @@ class AddPlayers extends Component {
         }
     };
 
+    state = {showNewPlayerModal: false, showExistingPlayerModal: false};
+
     onExistingPlayerPress() {
+
+        this.setState({showExistingPlayerModal: true});
 
     }
 
     onNewPlayerPress() {
+
+        this.setState({showNewPlayerModal: true});
 
     }
 
@@ -95,6 +102,9 @@ class AddPlayers extends Component {
                         </Button>
                     </View>
                 </View>
+                <AddNewPlayer
+                    visible={this.state.showNewPlayerModal}
+                />
             </View>
         )
     }
