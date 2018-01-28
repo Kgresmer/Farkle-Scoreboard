@@ -18,17 +18,21 @@ const styles = StyleSheet.create({
     buttonStyle: {
         justifyContent: 'center',
         alignSelf: 'stretch', //stretch to fill the limits of the container
-        backgroundColor: 'white',
+        backgroundColor: '#0b7a75',
         borderRadius: 5,
         borderWidth: 1,
         borderColor: 'white',
         marginLeft: 5,
         marginRight: 5,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 4,
     },
     textStyle: {
-        color: '#ff7f41',
+        color: 'white',
         fontSize: 16,
         fontWeight: '600',
         paddingTop: 10,

@@ -14,14 +14,13 @@ const styles = StyleSheet.create({
     containerStyle: {
         borderWidth: 1,
         borderRadius: 2, //at any corners round them
-        borderColor: '#ff7f41',
+        borderColor: 'white',
         borderBottomWidth: 0,
-        shadowColor: '#ff7f41',
-        backgroundColor: '#ff7f41',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2, //at any corners round them and this will match the card
-        elevation: 1,
+        backgroundColor: '#0b7a75',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 4,
         marginLeft: 5, //spacing between cards
         marginRight: 5,
         marginTop: 10,

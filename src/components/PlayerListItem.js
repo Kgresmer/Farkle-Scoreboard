@@ -1,38 +1,72 @@
 import React, {Component} from 'react';
-import {Text, TouchableWithoutFeedback, View} from 'react-native';
-import {CardSection} from './common';
+import {Text, TouchableWithoutFeedback, View, CheckBox, Dimensions} from 'react-native';
+import {CardSection, Card, Button} from './common';
 
 
 class PlayerListItem extends Component {
     onRowPress() {
-        this.props.navigation.navigate('EditEmployee', { employee: this.props.employee})
+
     }
 
     render() {
-        const {name} = this.props.employee;
-
+        const {player} = this.props;
+        console.log(player);
         return (
-            <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
-                <View>
-                    <CardSection>
-                        <Text style={styles.titleStyles}>
-                            {name}
-                        </Text>
-                    </CardSection>
+            <Card dynamicStyles={{backgroundColor: '#05a8aa', width: (Dimensions.get('window').width)}}>
+                <View style={styles.playerItemContainer}>
+                    <View>
+                        <CardSection style={{backgroundColor: '#05a8aa'}}>
+                            <Text style={styles.nameStyles}>
+                                {player.name}
+                            </Text>
+                        </CardSection>
+                    </View>
+                    <View>
+                        <CardSection style={{backgroundColor: '#05a8aa', padding: 3}}>
+                            <Text style={styles.textStyles}>
+                                Wins: {player.wins} Losses: {player.losses} {"\n"}
+                                Best Score: {player.bestScore} {"\n"}
+                                Worst Score: {player.worstScore}
+                            </Text>
+                        </CardSection>
+                    </View>
+                    <View>
+                        <Button
+                            buttonStyleDyn={styles.removeButtonStyle}
+                            textStyleDyn={styles.removeButtonTextStyle}
+                            onPress={() => {
+                            }}>
+                            X
+                        </Button>
+                    </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </Card>
         )
     }
 }
 
 const styles = {
-    titleStyles: {
-        fontSize: 18,
-        paddingLeft: 15,
-        paddingTop: 8,
-        paddingBottom: 8,
-        color: 'white'
-    }
+    playerItemContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    textStyles: {
+        alignSelf: 'stretch',
+        fontSize: 16,
+        color: 'white',
+    },
+    nameStyles: {
+        alignSelf: 'stretch',
+        fontSize: 21,
+        color: 'white',
+    },
+    removeButtonStyle: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#ea651d'
+    },
+    removeButtonTextStyle: {}
 };
 
 export default PlayerListItem;

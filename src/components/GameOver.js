@@ -6,7 +6,7 @@ class GameOver extends Component {
     static navigationOptions = {
         title: 'Game Over',
         headerStyle: {
-            backgroundColor: '#ff7f41'
+            backgroundColor: '#0b7a75'
         },
         headerTitleStyle:  {
             color: 'white'
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => {
     return {};
 };
 
-export default connect(mapStateToProps, null)(GameOver);
+export default GameOver;

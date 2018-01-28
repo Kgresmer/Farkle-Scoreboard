@@ -6,7 +6,7 @@ class Scoreboard extends Component {
     static navigationOptions = {
         title: 'Scoreboard',
         headerStyle: {
-            backgroundColor: '#ff7f41'
+            backgroundColor: '#0b7a75'
         },
         headerTitleStyle:  {
             color: 'white'
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => {
     return {};
 };
 
-export default connect(mapStateToProps, null)(Scoreboard);
+export default Scoreboard;
