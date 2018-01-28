@@ -44,6 +44,10 @@ class AddPlayers extends Component {
 
     }
 
+    closeAddNewPlayerModal() {
+        this.setState({showNewPlayerModal: false});
+    }
+
     componentWillMount() {
         // this.props.playersFetch();
 
@@ -104,6 +108,7 @@ class AddPlayers extends Component {
                 </View>
                 <AddNewPlayer
                     visible={this.state.showNewPlayerModal}
+                    closeModal={this.closeAddNewPlayerModal.bind(this)}
                 />
             </View>
         )

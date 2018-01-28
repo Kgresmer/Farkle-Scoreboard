@@ -10,7 +10,6 @@ class PlayerListItem extends Component {
 
     render() {
         const {player} = this.props;
-        console.log(player);
         return (
             <Card dynamicStyles={styles.card}>
                 <View style={styles.playerItemContainer}>

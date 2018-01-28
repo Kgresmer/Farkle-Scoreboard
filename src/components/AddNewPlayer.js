@@ -6,15 +6,15 @@ import {Card} from "./common/Card";
 import {Input} from "./common/Input";
 
 
-const AddNewPlayer = ({visible}) => {
+const AddNewPlayer = ({visible, closeModal}) => {
 
-    const addPlayer = () => {
+    const addNewPlayer = () => {
         // call action creator
-        visible = false;
+        closeModal();
     };
 
-    const cancelAddPlayer = () => {
-        visible = false;
+    const cancelAddNewPlayer = () => {
+        closeModal();
     };
 
     return (
@@ -42,11 +42,11 @@ const AddNewPlayer = ({visible}) => {
                     <CardSection>
                         <Button
                             buttonStyleDyn={{backgroundColor: '#ea651d'}}
-                            onPress={cancelAddPlayer}>
+                            onPress={cancelAddNewPlayer}>
                             Cancel</Button>
                         <Button
                             buttonStyleDyn={{backgroundColor: '#05a8aa'}}
-                            onPress={addPlayer}>
+                            onPress={addNewPlayer}>
                             Add</Button>
                     </CardSection>
                 </Card>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         lineHeight: 40,
-        marginBottom: 15,
+        marginBottom: 35,
         color: 'white'
     },
     containerStyles: {
