@@ -4,56 +4,62 @@ import {CardSection} from './common/CardSection';
 import {Button} from './common/Button';
 import {Card} from "./common/Card";
 import {Input} from "./common/Input";
+import {connect} from "react-redux";
 
 
-const AddNewPlayer = ({visible, closeModal}) => {
+class AddNewPlayer extends Component {
 
-    const addNewPlayer = () => {
-        // call action creator
-        closeModal();
+    state = {name: ''};
+
+    addNewPlayer() {
+        this.props.createPlayer({name: this.state.name});
+        this.props.closeModal();
     };
 
-    const cancelAddNewPlayer = () => {
-        closeModal();
+    cancelAddNewPlayer() {
+        this.props.closeModal();
     };
 
-    return (
-        <Modal
-            visible={visible}
-            transparent
-            animationType="slide"
-            onRequestClose={() => {
-            }}
-        >
-            <View style={styles.containerStyles}>
-                <Card dynamicStyles={styles.newPlayerCard}>
-                    <CardSection>
-                        <Text style={styles.textStyles}>Enter Player Name</Text>
-                    </CardSection>
-                    <Card dynamicStyles={styles.inputCard}>
+    render() {
+        return (
+            <Modal
+                visible={this.props.visible}
+                transparent
+                animationType="slide"
+                onRequestClose={() => {
+                }}
+            >
+                <View style={styles.containerStyles}>
+                    <Card dynamicStyles={styles.newPlayerCard}>
                         <CardSection>
-                            <Input
-                                label=""
-                                keyboardType="default"
-                                placeholder="Name"
-                            />
+                            <Text style={styles.textStyles}>Enter Player Name</Text>
+                        </CardSection>
+                        <Card dynamicStyles={styles.inputCard}>
+                            <CardSection>
+                                <Input
+                                    label=""
+                                    keyboardType="default"
+                                    placeholder="Name"
+                                    onChangeText={value => this.setState({name: value})}
+                                />
+                            </CardSection>
+                        </Card>
+                        <CardSection>
+                            <Button
+                                buttonStyleDyn={{backgroundColor: '#ea651d'}}
+                                onPress={this.cancelAddNewPlayer}>
+                                Cancel</Button>
+                            <Button
+                                buttonStyleDyn={{backgroundColor: '#05a8aa'}}
+                                onPress={this.addNewPlayer}>
+                                Add</Button>
                         </CardSection>
                     </Card>
-                    <CardSection>
-                        <Button
-                            buttonStyleDyn={{backgroundColor: '#ea651d'}}
-                            onPress={cancelAddNewPlayer}>
-                            Cancel</Button>
-                        <Button
-                            buttonStyleDyn={{backgroundColor: '#05a8aa'}}
-                            onPress={addNewPlayer}>
-                            Add</Button>
-                    </CardSection>
-                </Card>
-            </View>
-        </Modal>
-    );
-};
+                </View>
+            </Modal>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     newPlayerCard: {
@@ -84,4 +90,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export {AddNewPlayer};
+export default connect(null, { createPlayer })(AddNewPlayer);

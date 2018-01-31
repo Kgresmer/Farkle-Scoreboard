@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button} from "../components/common";
 import {StyleSheet, View, ListView} from "react-native";
 import PlayerListItem from "./PlayerListItem";
-import {AddNewPlayer} from "./AddNewPlayer";
+import AddNewPlayer from "./AddNewPlayer";
 
 const DATA = [
     {id: 1, name: 'Kevin', wins: 2, losses: 1, bestScore: 10500, worstScore: 5400},
