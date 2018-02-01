@@ -5,6 +5,7 @@ import {Button} from './common/Button';
 import {Card} from "./common/Card";
 import {Input} from "./common/Input";
 import {connect} from "react-redux";
+import {playerCreated} from "../actions";
 
 
 class AddNewPlayer extends Component {
@@ -90,4 +91,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(null, { createPlayer })(AddNewPlayer);
+export default connect(null, { playerCreated })(AddNewPlayer);

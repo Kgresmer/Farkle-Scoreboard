@@ -1,25 +1,31 @@
-import {PLAYER_CREATED} from "./types";
+import {ADD_PLAYER, DROP_PLAYER, PLAYER_CREATED, PLAYER_DELETED} from "./types";
 
-export const createPlayer = (name) => {
+export const playerCreated = (name) => {
     return {
         type: PLAYER_CREATED,
         payload: name
     };
 };
 
-// export const employeeCreate = ({ name }) => {
-//     // Save new person to local storage.
-//
-//     return (dispatch) => {
-//         /*
-//         {
-//         id: 1,
-//         name: name,
-//         wins: 2,
-//         losses: 1,
-//         bestScore: 10500,
-//         worstScore: 5400
-//         },
-//          */
-//     };
-// };
+export const playerDeleted = (name) => {
+    return {
+        type: PLAYER_DELETED,
+        payload: name
+    };
+};
+
+export const addPlayerToRoster = (name) => {
+    return {
+        type: ADD_PLAYER,
+        payload: name
+    };
+};
+
+
+export const removePlayerToRoster = (name) => {
+    return {
+        type: DROP_PLAYER,
+        payload: name
+    };
+};
+

@@ -2,18 +2,9 @@ import React, {Component} from 'react';
 import {Button} from "../components/common";
 import {StyleSheet, View, ListView} from "react-native";
 import PlayerListItem from "./PlayerListItem";
-import AddNewPlayer from "./AddNewPlayer";
-
-const DATA = [
-    {id: 1, name: 'Kevin', wins: 2, losses: 1, bestScore: 10500, worstScore: 5400},
-    {id: 2, name: 'Sigrid', wins: 3, losses: 0, bestScore: 10600, worstScore: 4400},
-    {id: 3, name: 'Bruce', wins: 1, losses: 5, bestScore: 10400, worstScore: 5300},
-    {id: 4, name: 'Marilyn', wins: 4, losses: 2, bestScore: 10200, worstScore: 3400},
-    {id: 5, name: 'Mark', wins: 3, losses: 1, bestScore: 11500, worstScore: 7400},
-    {id: 6, name: 'Luke', wins: 1, losses: 3, bestScore: 10300, worstScore: 8400},
-    {id: 7, name: 'Jessica', wins: 6, losses: 4, bestScore: 11100, worstScore: 9400},
-    {id: 8, name: 'Louise', wins: 3, losses: 1, bestScore: 10550, worstScore: 4400}
-];
+import {AddNewPlayer} from "./AddNewPlayer";
+import { connect } from 'react-redux';
+import {removePlayerToRoster, playerDeleted} from "../actions";
 
 class AddPlayers extends Component {
     static navigationOptions = {
@@ -49,9 +40,7 @@ class AddPlayers extends Component {
     }
 
     componentWillMount() {
-        // this.props.playersFetch();
-
-        this.createDataSource(DATA);
+        this.createDataSource([]);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -136,8 +125,11 @@ const styles = StyleSheet.create({
 });
 
 
-// const mapStateToProps = (state) => {
-//     return {};
-// };
+const mapStateToProps = (state) => {
+    return {roster: state.roster};
+};
 
-export default AddPlayers;
+export default connect(mapStateToProps, {
+    removePlayerToRoster,
+    playerDeleted
+})(AddPlayers);
