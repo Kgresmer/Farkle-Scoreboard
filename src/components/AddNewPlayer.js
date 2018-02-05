@@ -1,21 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Text, View, Modal, StyleSheet, Dimensions} from 'react-native';
 import {CardSection} from './common/CardSection';
 import {Button} from './common/Button';
 import {Card} from "./common/Card";
 import {Input} from "./common/Input";
-import {connect} from "react-redux";
-import {playerCreated} from "../actions";
-
 
 class AddNewPlayer extends Component {
 
     state = {name: ''};
 
+    componentWillMount() {
+        console.log(' add new player mounted')
+        console.log(this.props)
+    }
+
     addNewPlayer() {
-        this.props.createPlayer({name: this.state.name});
+        this.props.addPlayer(this.state.name);
         this.props.closeModal();
-    };
+    }
 
     cancelAddNewPlayer() {
         this.props.closeModal();
@@ -48,11 +50,11 @@ class AddNewPlayer extends Component {
                         <CardSection>
                             <Button
                                 buttonStyleDyn={{backgroundColor: '#ea651d'}}
-                                onPress={this.cancelAddNewPlayer}>
+                                onPress={this.cancelAddNewPlayer.bind(this)}>
                                 Cancel</Button>
                             <Button
                                 buttonStyleDyn={{backgroundColor: '#05a8aa'}}
-                                onPress={this.addNewPlayer}>
+                                onPress={this.addNewPlayer.bind(this)}>
                                 Add</Button>
                         </CardSection>
                     </Card>
@@ -91,4 +93,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(null, { playerCreated })(AddNewPlayer);
+export default AddNewPlayer;

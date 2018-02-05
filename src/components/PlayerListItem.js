@@ -31,6 +31,13 @@ class PlayerListItem extends Component {
                     </View>
                     <View>
                         <Button
+                            buttonStyleDyn={styles.addButtonStyle}
+                            textStyleDyn={styles.addButtonTextStyle}
+                            onPress={() => {
+                            }}>
+                            +
+                        </Button>
+                        <Button
                             buttonStyleDyn={styles.removeButtonStyle}
                             textStyleDyn={styles.removeButtonTextStyle}
                             onPress={() => {
@@ -69,7 +76,12 @@ const styles = {
         alignSelf: 'flex-start',
         backgroundColor: '#ea651d'
     },
-    removeButtonTextStyle: {}
+    removeButtonTextStyle: {},
+    addButtonStyle: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#89ae6d'
+    },
+    addButtonTextStyle: {}
 };
 
 export default PlayerListItem;

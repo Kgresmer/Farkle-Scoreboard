@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Button} from "../components/common";
 import {StyleSheet, View, ListView} from "react-native";
 import PlayerListItem from "./PlayerListItem";
-import {AddNewPlayer} from "./AddNewPlayer";
+import AddNewPlayer from "./AddNewPlayer";
 import { connect } from 'react-redux';
-import {removePlayerToRoster, playerDeleted} from "../actions";
+import {removePlayerToRoster, playerDeleted, playerCreated} from "../actions";
+import AddExistingPlayer from "./AddExistingPlayer";
 
 class AddPlayers extends Component {
     static navigationOptions = {
@@ -19,16 +20,20 @@ class AddPlayers extends Component {
 
     state = {showNewPlayerModal: false, showExistingPlayerModal: false};
 
+    addNewPlayer(name) {
+        console.log('player created. adding player');
+        this.props.playerCreated({name});
+        this.closeAddNewPlayerModal();
+    };
+
     onExistingPlayerPress() {
-
-        this.setState({showExistingPlayerModal: true});
-
+        console.log('navigate to add existing');
+        console.log(this);
+        this.props.navigation.navigate('AddExistingPlayers');
     }
 
     onNewPlayerPress() {
-
         this.setState({showNewPlayerModal: true});
-
     }
 
     onReadyButtonPress() {
@@ -39,23 +44,33 @@ class AddPlayers extends Component {
         this.setState({showNewPlayerModal: false});
     }
 
-    componentWillMount() {
-        this.createDataSource([]);
+    closeAddExistingPlayerModal() {
+        this.props.navigation.navigate('AddExistingPlayer');
     }
 
+    componentWillMount() {
+        console.log(this.props);
+        this.createDataSource(this.props.roster);
+    }
+
+    // TODO may not be needed
     componentWillReceiveProps(nextProps) {
-        //this.createDataSource(nextProps);
+        console.log('will receive add players');
+        console.log(this.props);
+        this.createDataSource(nextProps.roster);
     }
 
     createDataSource(players) {
+        console.log('create datasource');
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
+        console.log('about to clone');
         this.dataSource = ds.cloneWithRows(players);
     }
 
     renderRow(player) {
-
+        console.log('render row');
         return <PlayerListItem player={player}/>;
     }
 
@@ -98,6 +113,7 @@ class AddPlayers extends Component {
                 <AddNewPlayer
                     visible={this.state.showNewPlayerModal}
                     closeModal={this.closeAddNewPlayerModal.bind(this)}
+                    addPlayer={this.addNewPlayer.bind(this)}
                 />
             </View>
         )
@@ -126,10 +142,16 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    return {roster: state.roster};
+    console.log('map state to props')
+    console.log(state);
+    return {
+        roster: state.player.roster,
+        playerList: state.player.playerList
+    };
 };
 
 export default connect(mapStateToProps, {
     removePlayerToRoster,
-    playerDeleted
+    playerDeleted,
+    playerCreated
 })(AddPlayers);
