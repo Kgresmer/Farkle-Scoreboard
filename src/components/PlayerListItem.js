@@ -4,8 +4,15 @@ import {CardSection, Card, Button} from './common';
 
 
 class PlayerListItem extends Component {
-    onRowPress() {
 
+    deletePlayer() {
+        console.log('delete player')
+        console.log(this.props);
+        this.props.deletePlayer(this.props.player.id);
+    }
+
+    playerAdded() {
+        this.props.playerAdded(this.props.player);
     }
 
     render() {
@@ -33,15 +40,13 @@ class PlayerListItem extends Component {
                         <Button
                             buttonStyleDyn={styles.addButtonStyle}
                             textStyleDyn={styles.addButtonTextStyle}
-                            onPress={() => {
-                            }}>
+                            onPress={this.playerAdded.bind(this)}>
                             +
                         </Button>
                         <Button
                             buttonStyleDyn={styles.removeButtonStyle}
                             textStyleDyn={styles.removeButtonTextStyle}
-                            onPress={() => {
-                            }}>
+                            onPress={this.deletePlayer.bind(this)}>
                             X
                         </Button>
                     </View>

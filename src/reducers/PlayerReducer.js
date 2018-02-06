@@ -1,5 +1,8 @@
-import {ADD_PLAYER, DROP_PLAYER, PLAYER_CREATED, PLAYER_DELETED} from "../actions/types";
-import {REHYDRATE} from 'redux-persist/es/constants';
+import { REHYDRATE } from 'redux-persist/es/constants';
+import { ADD_EXISTING_PLAYER,
+    DROP_PLAYER,
+    PLAYER_CREATED,
+    PLAYER_DELETED} from "../actions/types";
 
 const INITIAL_STATE = {
     playerList: [],
@@ -7,9 +10,10 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+    console.log(action);
     switch (action.type) {
         case PLAYER_CREATED:
-            console.log('create player' + state.roster);
+            console.log('create player');
             const newPlayer = {
                 id: 1,
                 name: action.payload,
@@ -18,44 +22,70 @@ export default (state = INITIAL_STATE, action) => {
                 bestScore: null,
                 worstScore: null
             };
+            state.playerList.push(newPlayer);
+            state.roster.push(newPlayer);
             return {
-                playerList: state.playerList.push(newPlayer),
-                roster: state.roster.push(newPlayer)
+                playerList: clone(state.playerList),
+                roster: clone(state.roster)
             };
         case PLAYER_DELETED:
-            console.log('delete player' + state.roster);
+            console.log('delete player');
             const playerListIndex = state.playerList.find(player => {
-                return player.id = action.payload;
+                return player.id === action.payload;
             });
             const rosterIndex = state.roster.find(player => {
-                return player.id = action.payload;
+                return player.id === action.payload;
             });
+            state.playerList.splice(playerListIndex, 1);
+            state.roster.splice(rosterIndex, 1);
             return {
-                playerList: state.playerList.splice(playerListIndex, 1),
-                roster: state.roster.splice(rosterIndex, 1),
+                playerList: clone(state.playerList),
+                roster: clone(state.roster),
             };
         case DROP_PLAYER:
             console.log('drop player' + state.roster);
             if (state.roster) {
                 const rosterIndexDrop = state.roster.find(player => {
-                    return player.id = action.payload;
+                    return player.id === action.payload;
                 });
-
+                state.roster.splice(rosterIndexDrop, 1);
                 return {
-                    roster: state.roster.splice(rosterIndexDrop, 1),
-                    playerList: state.playerList
+                    roster: clone(state.roster),
+                    playerList: clone(state.playerList)
                 };
             } else {
                 return { ...state };
             }
-        case ADD_PLAYER:
+        case ADD_EXISTING_PLAYER:
             console.log('add player' + state.roster);
+            if (action.payload) {
+                state.roster.push(action.payload);
+            }
+
             return {
-                playerList: state.playerList,
-                roster: state.roster.push(newPlayer)
+                playerList: clone(state.playerList),
+                roster: clone(state.roster)
+            };
+        case REHYDRATE:
+            console.log('hydrate');
+            let playerList = [];
+            let roster = [];
+            if (action.payload && action.payload.playerList) {
+                playerList = action.payload.playerList;
+            }
+            if (action.payload && action.payload.roster) {
+                roster = action.payload.roster;
+            }
+            return {
+                playerList: playerList,
+                roster: roster
             };
         default:
             console.log('default');
-            return state;
+            return { ...state};
     }
+}
+
+function clone(src) {
+    return JSON.parse(JSON.stringify(src));
 }
